@@ -1,31 +1,58 @@
 package com.example.quickNote.controller;
 
+import com.example.quickNote.exception.NoteNotFoundException;
 import com.example.quickNote.model.Note;
 import com.example.quickNote.repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api")
 public class NoteController {
 
-    @Autowired
-    NoteRepository noteRepository;
+  @Autowired NoteRepository noteRepository;
 
-    @GetMapping("/notes")
-    public List<Note> getAllNotes(){
-        return noteRepository.findAll();
-    }
-    @PostMapping("/notes")
-    public Note createNote(@RequestBody Note note){
-        return noteRepository.save(note);
-    }
+  @GetMapping("/notes")
+  public List<Note> getAllNotes() {
+    return noteRepository.findAll();
+  }
 
-    @DeleteMapping("/notes/{id}")
-    void deleteEmployee(@PathVariable Long id){
-        noteRepository.deleteById(id);
-    }
+  @GetMapping("/notes/{id}")
+  public Note getNoteByID(@PathVariable Long id) {
+    return noteRepository.findById(id).orElseThrow(() -> new NoteNotFoundException(id));
+  }
 
+  @PostMapping("/notes")
+  public Note createNote(@RequestBody Note note) {
+    return noteRepository.save(note);
+  }
+
+  @PutMapping("/notes/{id}")
+  ResponseEntity<Note> updateNote(@PathVariable Long id, @RequestBody Note newNote) {
+    return noteRepository
+        .findById(id)
+        .map(
+            currentNote -> {
+              currentNote.setNoteText(newNote.getNoteText());
+              currentNote.setPriority(newNote.getPriority());
+              currentNote.setState(newNote.getState());
+              noteRepository.save(currentNote);
+              return ResponseEntity.ok(currentNote);
+            })
+        .orElseThrow(() -> new NoteNotFoundException(id));
+  }
+
+  @DeleteMapping("/notes/{id}")
+  void deleteEmployee(@PathVariable Long id) {
+    noteRepository.deleteById(id);
+  }
+
+  @DeleteMapping("/notes")
+  void deleteAll() {
+    noteRepository.deleteAll();
+  }
 }
