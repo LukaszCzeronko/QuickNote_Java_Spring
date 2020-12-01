@@ -1,0 +1,18 @@
+<h2>Note</h2> 
+
+<hr/>
+<div *ngIf="note">
+  <div>
+    <label><b>Status: </b></label> {{note.state}}
+  </div>
+  <div>
+    <label><b>Priority: </b></label> {{note.priority}}
+  </div>
+  <div>
+    <label><b>Note: </b></label> {{note.noteText}}
+  </div>  
+</div>
+
+<br>
+<br>
+<button (click)="list()" class="btn btn-primary">Back to Notes</button><br>

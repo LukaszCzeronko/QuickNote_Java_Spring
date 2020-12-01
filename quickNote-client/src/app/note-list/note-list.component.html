@@ -1,0 +1,26 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+<h2>Notes</h2>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                    <th>Status</th>
+                    <th>Priority</th>
+                    <th>Note</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let note of notes | async">
+                        <td>{{note.state}}</td>
+                        <td>{{note.priority}}</td>
+                        <th>{{note.noteText}}</th>
+                        <td><button (click)="deleteNote(note.id)" class="btn btn-danger">Delete</button>
+                        <button (click)="displayNote(note.id)" class="btn btn-info" style="margin-left: 10px;">Show</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>

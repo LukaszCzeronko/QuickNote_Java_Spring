@@ -32,9 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 
-# dependencies
 quickNote-client/node_modules/
-
-# compiled output
 quickNote-client/dist/
 
