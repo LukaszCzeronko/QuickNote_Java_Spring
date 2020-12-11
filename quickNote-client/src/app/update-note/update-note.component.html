@@ -7,13 +7,17 @@
     </div>
 
     <div class="form-group">
-      <label for="name">Priority</label>
-      <input type="text" class="form-control" id="priority" required [(ngModel)]="note.priority" name="priority">
+      <label for="exampleFormControlSelect1">Priority</label>
+      <select class="form-control" [(ngModel)]="selectedOption" (ngModelChange)='onNoteSelected($event)' name="exampleFormControlSelect1">
+        <option *ngFor="let priority of priorities" [ngValue]="priority.name">
+          {{priority.name}}
+        </option>
+      </select>
     </div>
 
     <div class="form-group">
-      <label for="name">Note</label>
-      <input type="text" class="form-control" id="note" required [(ngModel)]="note.noteText" name="note">
+      <label for="exampleFormControlTextarea1">Note</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" required [(ngModel)]="note.noteText" name="exampleFormControlTextarea1" rows="3"></textarea>
     </div>
 
     <button type="submit" class="btn btn-success">Submit</button>

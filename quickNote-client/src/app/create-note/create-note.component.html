@@ -1,26 +1,22 @@
 <h3>Create Note</h3>
 <div [hidden]="confirmed" style="width: 400px;">
   <form (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="name">Priority</label>
-      <input type="text" class="form-control" id="priority" required [(ngModel)]="note.priority" name="priority">
-    </div>
-
+<div class="form-group">
+  <label for="exampleFormControlSelect1">Priority</label>
+<select class="form-control" [(ngModel)]="selectedOption" (ngModelChange)='onNoteSelected($event)' name="exampleFormControlSelect1">
+  <option *ngFor="let priority of priorities" [ngValue]="priority.name">
+    {{priority.name}}
+  </option>
+</select>
+</div>
     <div class="form-group">
       <label for="name">NoteText</label>
       <input type="text" class="form-control" id="noteText" required [(ngModel)]="note.noteText" name="noteText">
     </div>
-
-    <div class="form-group">
-      <label for="name">State</label>
-      <input type="text" class="form-control" id="state" required [(ngModel)]="note.state" name="state">
-    </div>
-
-    <button type="submit" class="btn btn-success">Submit</button>
-  </form>
+<button type="submit" class="btn btn-success">Submit</button>
+</form>
 </div>
-
 <div [hidden]="!confirmed">
   <h4>You submitted successfully!</h4>
-  <!-- <button class="btn btn-success" (click)="newEmployee()">Add</button> -->
+  <!-- <button class="btn btn-success" (click)="newNote()">Add</button> -->
 </div>

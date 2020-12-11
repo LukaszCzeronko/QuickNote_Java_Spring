@@ -10,6 +10,8 @@ import{NoteService} from '../note.service';
 export class UpdateNoteComponent implements OnInit {
 id:number;
 note:Note;
+selectedOption:string;
+priorities=[{name:'LOW'},{name:'MEDIUM'},{name:'HIGH'}];
   constructor(private route: ActivatedRoute,private router: Router,private noteService: NoteService) { }
 
   ngOnInit(): void {
@@ -19,6 +21,7 @@ note:Note;
       data=>{
         console.log(data)
         this.note=data;
+        this.selectedOption=this.note.priority;
       },error=>console.log(error)
     );
   }
@@ -35,5 +38,9 @@ note:Note;
   }
   gotoList(){
     this.router.navigate(['/notes']);
+  }
+  onNoteSelected(val:any){
+    console.log(val)
+    this.note.priority=val;
   }
 }

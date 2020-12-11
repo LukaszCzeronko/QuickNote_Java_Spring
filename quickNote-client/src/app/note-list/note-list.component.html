@@ -18,6 +18,7 @@
                         <th>{{note.noteText}}</th>
                         <td><button (click)="deleteNote(note.id)" class="btn btn-danger">Delete</button>
                         <button (click)="displayNote(note.id)" class="btn btn-info" style="margin-left: 10px;">Show</button>
+                        <button (click)="modifyNote(note.id)" class="btn btn-info" style="margin-left: 10px;">Modify</button>
                         </td>
                     </tr>
                 </tbody>

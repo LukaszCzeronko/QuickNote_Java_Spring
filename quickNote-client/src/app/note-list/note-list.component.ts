@@ -31,4 +31,7 @@ deleteNote(id:number){
 displayNote(id:number){
   this.router.navigate(['display',id]);
 }
+modifyNote(id:number){
+  this.router.navigate(['update',id])
+}
 }

@@ -1,6 +1,6 @@
 export class Note{
     id: number;
     priority:string;
-    state:boolean;
+    state:string;
     noteText:string;
 }

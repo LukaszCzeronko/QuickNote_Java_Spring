@@ -1,6 +1,10 @@
 package com.example.quickNote.model;
 
+import lombok.Builder;
+
 import javax.persistence.*;
+
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Table(name = "Tables")
@@ -69,4 +73,7 @@ public class Note {
         + '\''
         + '}';
   }
+  @ManyToOne(fetch = LAZY)
+  @JoinColumn(name = "userId",referencedColumnName = "userId")
+  private User user;
 }

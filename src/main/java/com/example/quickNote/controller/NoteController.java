@@ -3,6 +3,7 @@ package com.example.quickNote.controller;
 import com.example.quickNote.exception.NoteNotFoundException;
 import com.example.quickNote.model.Note;
 import com.example.quickNote.repository.NoteRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200",maxAge = 3600)
+@AllArgsConstructor
 @RequestMapping("/api")
 public class NoteController {
 
@@ -47,7 +49,7 @@ public class NoteController {
   }
 
   @DeleteMapping("/notes/{id}")
-  void deleteEmployee(@PathVariable Long id) {
+  void deleteNote(@PathVariable Long id) {
     noteRepository.deleteById(id);
   }
 
