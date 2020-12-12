@@ -8,6 +8,7 @@ export class NoteService {
   private baseUrl = 'http://localhost:8080/quick-note/api/notes';
   constructor(private http: HttpClient) { }
   getNoteList(): Observable<any>{
+console.log(`${this.baseUrl}`)
     return this.http.get(`${this.baseUrl}`);
   }
   getNote(id: number):Observable<any>{

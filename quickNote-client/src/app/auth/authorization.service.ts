@@ -1,16 +1,17 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable,throwError  } from 'rxjs';
 import {SignupRequest} from 'src/app/model/signupRequest';
 import {LoginRequest} from 'src/app/model/loginRequest';
 import {map} from 'rxjs/operators';
 import {LocalStorageService} from 'ngx-webstorage';
 import {LoginResponse} from 'src/app/model/loginResponse';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorizationService {
-private baseUrl='http://localhost:8080/quick-note/api/auth';
+  private baseUrl='http://localhost:8080/quick-note/api/auth';
   constructor(private http:HttpClient,private localStorage:LocalStorageService) { }
 
   signup(signupData:SignupRequest):Observable<any>{
@@ -26,5 +27,15 @@ private baseUrl='http://localhost:8080/quick-note/api/auth';
   
   getJwtToken() {
     return this.localStorage.retrieve('authenticationToken');
+  }
+  logout() {
+    this.http.get('http://localhost:8080/quick-note/api/auth/logout')
+      .subscribe(data => {
+        console.log(data);
+      }, error => {
+        throwError(error);
+      })
+    this.localStorage.clear('authenticationToken');
+    this.localStorage.clear('username');
   }
 }

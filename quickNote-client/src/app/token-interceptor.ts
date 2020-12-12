@@ -9,19 +9,24 @@ import {LoginResponse} from './model/loginResponse';
     providedIn: 'root'
 })
 export class TokenInterceptor implements HttpInterceptor {
-     constructor(public authService: AuthorizationService) { }
-     intercept(req: HttpRequest<any>, next: HttpHandler):
-        Observable<HttpEvent<any>> {
-        const jwtToken = this.authService.getJwtToken();
-        return next.handle(this.addToken(req, jwtToken));
+    constructor(public authService: AuthorizationService) { }
+    intercept(req: HttpRequest<any>, next: HttpHandler):
+       Observable<HttpEvent<any>> {
+       const jwtToken = this.authService.getJwtToken();
+       return next.handle(this.addToken(req, jwtToken));
 
-    }
+   }
 
 // setHeaders
-     addToken(req: HttpRequest<any>, jwtToken:any){
-         return req.clone({
-            headers: req.headers.set('Authorization',
-             jwtToken)
-         });
-     }
+addToken(req: HttpRequest<any>, jwtToken: any) {
+    if(jwtToken){
+    return req.clone({
+        headers: req.headers.set('Authorization',
+jwtToken)
+    });}
+    else{
+        return req;
+    }
+
+}
 }

@@ -14,6 +14,9 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import {TokenInterceptor} from './token-interceptor';
+// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +26,8 @@ import {TokenInterceptor} from './token-interceptor';
     NoteListComponent,
     UpdateNoteComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -31,7 +35,9 @@ import {TokenInterceptor} from './token-interceptor';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NgxWebstorageModule.forRoot()
+    NgxWebstorageModule.forRoot(),
+    // FontAwesomeModule,
+    // NgbModule
   ],
   providers: [
     {

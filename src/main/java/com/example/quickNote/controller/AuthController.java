@@ -34,4 +34,8 @@ public class AuthController {
     //System.out.println(authService.login(loginRequest));
         return authService.login(loginRequest);
     }
+    @GetMapping("/logout")
+public ResponseEntity<String> logout(){
+        return new ResponseEntity<>("Logout OK",HttpStatus.OK);
+    }
 }

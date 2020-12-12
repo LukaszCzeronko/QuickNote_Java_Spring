@@ -12,7 +12,6 @@ import {throwError} from 'rxjs';
 })
 export class LoginComponent implements OnInit {
 
-  
   loginForm:FormGroup;
   loginRequest:LoginRequest;
   failed:boolean;

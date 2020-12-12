@@ -12,7 +12,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./note-list.component.css']
 })
 export class NoteListComponent implements OnInit {
-notes: Observable<Note[]>;
+  notes: Observable<Note[]>;
   constructor(private noteSerive:NoteService, private router:Router) { }
 
   ngOnInit(): void {

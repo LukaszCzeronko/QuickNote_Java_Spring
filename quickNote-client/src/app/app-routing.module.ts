@@ -6,14 +6,16 @@ import {NoteListComponent} from './note-list/note-list.component';
 import {UpdateNoteComponent} from './update-note/update-note.component';
 import {LoginComponent} from './auth/login/login.component';
 import {SignupComponent} from './auth/signup/signup.component';
+
 const routes: Routes = [
-{path:'',redirectTo: 'notes',pathMatch:'full'},
-{path: 'notes', component: NoteListComponent},
-{path: 'add',component: CreateNoteComponent},
-{path: 'update/:id',component: UpdateNoteComponent},
-{path: 'display/:id',component: DisplayNoteComponent},
-{path: 'login',component:LoginComponent},
-{path: 'signup',component:SignupComponent}
+  {path:'',redirectTo: 'notes',pathMatch:'full'},
+  {path: 'notes', component: NoteListComponent},
+  {path: 'add',component: CreateNoteComponent},
+  {path: 'update/:id',component: UpdateNoteComponent},
+  {path: 'display/:id',component: DisplayNoteComponent},
+  {path: 'login',component:LoginComponent},
+  {path: 'signup',component:SignupComponent}
+
 
 ];
 
