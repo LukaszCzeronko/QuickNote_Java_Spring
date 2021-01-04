@@ -61,18 +61,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .permitAll()
         .anyRequest()
         .authenticated();
-httpSecurity.logout(logout -> logout
-              .logoutUrl("/api/auth/logout")
-              .addLogoutHandler((request, response, auth) -> {
-                  for (Cookie cookie : request.getCookies()) {
-                      String cookieName = cookie.getName();
-                      Cookie cookieToDelete = new Cookie(cookieName, null);
-                      cookieToDelete.setMaxAge(0);
-                      response.addCookie(cookieToDelete);
-                  }
-              })
-      );
-
     httpSecurity.addFilterBefore(
         jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
   }

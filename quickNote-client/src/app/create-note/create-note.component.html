@@ -1,21 +1,39 @@
-<h3>Create Note</h3>
-<div [hidden]="confirmed" style="width: 400px;">
-  <form (ngSubmit)="onSubmit()">
-<div class="form-group">
-  <label for="exampleFormControlSelect1">Priority</label>
-<select class="form-control" [(ngModel)]="selectedOption" (ngModelChange)='onNoteSelected($event)' name="exampleFormControlSelect1">
-  <option *ngFor="let priority of priorities" [ngValue]="priority.name">
-    {{priority.name}}
-  </option>
-</select>
-</div>
-    <div class="form-group">
-      <label for="name">NoteText</label>
-      <input type="text" class="form-control" id="noteText" required [(ngModel)]="note.noteText" name="noteText">
+<div class="container">
+  <div class="row">
+    <hr />
+    <div class="create-note-container col-md-9">
+      <form class="note-form" [formGroup]="createNoteForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <div class="create-post-heading">Create Post</div>
+          <hr />
+          <select class="form-control" [formControlName]="'priority'" [(ngModel)]="selectedOption" (ngModelChange)='onNoteSelected($event)' name="exampleFormControlSelect1">
+            <option *ngFor="let priority of priorities" [ngValue]="priority.name">
+              {{priority.name}}
+            </option>
+          </select>
+          <editor [formControlName]="'text'" [init]="{
+                      height: 400,
+                      menubar: true,
+                      plugins: [
+                        'advlist autolink lists link image charmap print preview anchor',
+                        'searchreplace visualblocks code fullscreen',
+                        'insertdatetime media table paste code help wordcount'
+                      ],
+                      toolbar:
+                        'undo redo | formatselect | bold italic backcolor | \
+                        alignleft aligncenter alignright alignjustify | \
+                        bullist numlist outdent indent | removeformat | help'
+                    }"></editor>
+          <span>
+          </span>
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+      </form>
     </div>
-<button type="submit" class="btn btn-success">Submit</button>
-</form>
+  </div>
 </div>
+
+
 <div [hidden]="!confirmed">
   <h4>You submitted successfully!</h4>
   <!-- <button class="btn btn-success" (click)="newNote()">Add</button> -->

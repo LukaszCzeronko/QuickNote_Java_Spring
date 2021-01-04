@@ -8,7 +8,13 @@ import lombok.AllArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -17,11 +23,11 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     private final AuthService authService;
 
-    @PostMapping("/signup")
-    public ResponseEntity signup(@RequestBody RegisterRequest registerRequest){
-        authService.signup(registerRequest);
+  @PostMapping("/signup")
+  public ResponseEntity signup(@RequestBody RegisterRequest registerRequest) {
+
     System.out.println(registerRequest);
-        return  new ResponseEntity(HttpStatus.OK);
+      return authService.signup(registerRequest);
     }
     @GetMapping("/accountVerification/{token}")
     public ResponseEntity<String> verifyAccount(@PathVariable String token){
@@ -30,12 +36,16 @@ public class AuthController {
     }
     @PostMapping("/login")
     public AuthenticationResponse login(@RequestBody LoginRequest loginRequest){
-   // System.out.println(loginRequest);
-    //System.out.println(authService.login(loginRequest));
         return authService.login(loginRequest);
     }
     @GetMapping("/logout")
-public ResponseEntity<String> logout(){
-        return new ResponseEntity<>("Logout OK",HttpStatus.OK);
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+    System.out.println("logout");
+        return "logout";
     }
+
 }

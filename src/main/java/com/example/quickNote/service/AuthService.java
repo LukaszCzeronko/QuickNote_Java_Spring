@@ -12,15 +12,20 @@ import com.example.quickNote.repository.VerificationTokenRepository;
 import com.example.quickNote.security.JwtProvider;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -43,7 +48,14 @@ public class AuthService {
     private final JwtProvider jwtProvider;
 
     @Transactional
-    public void signup(RegisterRequest registerRequest){
+    public ResponseEntity signup(RegisterRequest registerRequest){
+        if(userRepository.findByUsername(registerRequest.getUsername()).isPresent()){
+            return new ResponseEntity("username already in use", HttpStatus.NOT_ACCEPTABLE);
+        }
+        if(userRepository.findByEmail(registerRequest.getEmail()).isPresent()){
+            return new ResponseEntity("email already in use", HttpStatus.NOT_ACCEPTABLE);
+        }
+
         User user = new User();
         user.setUsername(registerRequest.getUsername());
         user.setEmail(registerRequest.getEmail());
@@ -59,6 +71,7 @@ public class AuthService {
                 + ACTIVATION_EMAIL + "/" + token);
 
     mailService.sendMail(new NotificationEmail("Active your account", user.getEmail(),message));
+        return new ResponseEntity("OK",HttpStatus.OK);
     }
     private String encodePassword(String password){
         return passwordEncoder.encode(password);
@@ -94,6 +107,15 @@ public class AuthService {
         return new AuthenticationResponse(authenticationToken,loginRequest.getUsername());
 
     }
+public String logout(HttpServletRequest request, HttpServletResponse response){
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth != null) {
+        new SecurityContextLogoutHandler().logout(request, response, auth);
+    }
+
+    return "logout";
+};
+
     @Transactional(readOnly = true)
     public User getCurrentUser() {
         org.springframework.security.core.userdetails.User principal = (org.springframework.security.core.userdetails.User) SecurityContextHolder.

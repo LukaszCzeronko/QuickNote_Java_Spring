@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import{Note} from '../note';
+import{Note} from '../model/note';
 import {NoteService} from '../note.service';
 import {NoteListComponent} from '../note-list/note-list.component';
 import {Router,ActivatedRoute} from '@angular/router';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-display-note',
@@ -12,6 +13,7 @@ import {Router,ActivatedRoute} from '@angular/router';
 export class DisplayNoteComponent implements OnInit {
 id:number
 note: Note;
+
   constructor(private route: ActivatedRoute,private router: Router,private noteService: NoteService) { }
 
   ngOnInit(): void {

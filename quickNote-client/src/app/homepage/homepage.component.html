@@ -1,0 +1,16 @@
+
+<div class="container">
+  <body class="text-center">
+    <form class="form-signin">
+        <h1 class="h3 mb-3 font-weight-normal">Welcome to QUICK NOTE</h1>
+      <img class="mb-4" src="./assets/c6828fda-c199-448b-8a3e-1028b736523b_200x200.png" alt="image">
+    
+      <div *ngIf="!isLoggedIn" class="bar-option">  
+      <a routerLink="/login"> <button class="btn btn-lg btn-primary btn-block" type="submit" >Login</button></a>
+<p> OR</p>
+      <a routerLink="/sign-up"> <button class="btn btn-lg btn-primary btn-block" type="submit" >Sign up</button></a>
+      </div>
+      <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
+    </form>
+  </body>
+</div>

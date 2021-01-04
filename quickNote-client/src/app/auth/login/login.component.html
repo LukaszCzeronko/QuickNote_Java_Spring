@@ -37,7 +37,9 @@
               <span style="padding-left: 15px">Create new account:  <a routerLink="/sign-up">SIGN UP</a></span>
             </span>
             <div class="login-failed" *ngIf='this.failed'>
-              <p class="login-failed-text">Login Failed.</p>
+              <div class="alert alert-danger" role="alert">
+              WRONG CREDENTIALS
+              </div>
             </div>
           </form>
         </div>

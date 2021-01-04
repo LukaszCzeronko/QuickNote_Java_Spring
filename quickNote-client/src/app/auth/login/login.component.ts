@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   loginForm:FormGroup;
   loginRequest:LoginRequest;
   failed:boolean;
-  constructor(private authService:AuthorizationService) { 
+  constructor(private authService:AuthorizationService,private router:Router) { 
     this.loginRequest={
       username:'',
       password:''
@@ -36,10 +36,14 @@ login(){
   this.authService.login(this.loginRequest).subscribe(data=>{
     console.log('Login OK')
     this.failed=false;
+    this.gotoList();
   },error=>{
     this.failed=true;
     throwError(error);
   });
-}
  
+}
+gotoList(){
+  this.router.navigate(['/homepage']);
+}
 }

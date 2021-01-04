@@ -11,6 +11,8 @@ import {LoginResponse} from 'src/app/model/loginResponse';
   providedIn: 'root'
 })
 export class AuthorizationService {
+  @Output() loggedIn: EventEmitter<boolean>= new EventEmitter();
+  @Output() username: EventEmitter<string> = new EventEmitter();
   private baseUrl='http://localhost:8080/quick-note/api/auth';
   constructor(private http:HttpClient,private localStorage:LocalStorageService) { }
 
@@ -21,6 +23,8 @@ export class AuthorizationService {
     return this.http.post<LoginResponse>(`${this.baseUrl}/login`,loginData).pipe(map(data=>{
       this.localStorage.store('authenticationToken', data.authenticationToken);
         this.localStorage.store('username', data.username);
+        this.loggedIn.emit(true);
+        this.username.emit(data.username);
       return true;
    }));
   }
@@ -35,7 +39,14 @@ export class AuthorizationService {
       }, error => {
         throwError(error);
       })
+      this.loggedIn.emit(false);
     this.localStorage.clear('authenticationToken');
     this.localStorage.clear('username');
+  }
+  isLoggedIn(): boolean {
+    return this.getJwtToken() != null;
+  }
+  getUserName() {
+    return this.localStorage.retrieve('username');
   }
 }

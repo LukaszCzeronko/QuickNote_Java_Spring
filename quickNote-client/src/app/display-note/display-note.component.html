@@ -1,7 +1,9 @@
+
+<div class="note">
 <h2>Note</h2> 
 
 <hr/>
-<div *ngIf="note">
+<div class="container" *ngIf="note">
   <div>
     <label><b>Status: </b></label> {{note.state}}
   </div>
@@ -9,10 +11,13 @@
     <label><b>Priority: </b></label> {{note.priority}}
   </div>
   <div>
-    <label><b>Note: </b></label> {{note.noteText}}
-  </div>  
+    <label><b>Note: </b></label> 
+    <div>
+      <p class="note-text" [innerHtml]="note.noteText"></p>
+    </div>
 </div>
 
 <br>
 <br>
 <button (click)="list()" class="btn btn-primary">Back to Notes</button><br>
+</div>

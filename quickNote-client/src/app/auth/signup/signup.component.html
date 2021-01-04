@@ -44,5 +44,10 @@
       </div>
     </div>
     <div class="col-md-3"></div>
+    <div class="login-failed" *ngIf='this.failed'>
+      <div class="alert alert-danger" role="alert">
+        {{errorMessage}}
+      </div>
+    </div>
   </div>
 </div>

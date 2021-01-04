@@ -3,6 +3,7 @@ package com.example.quickNote.controller;
 import com.example.quickNote.exception.NoteNotFoundException;
 import com.example.quickNote.model.Note;
 import com.example.quickNote.repository.NoteRepository;
+import com.example.quickNote.service.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,9 +18,11 @@ import java.util.List;
 public class NoteController {
 
   @Autowired NoteRepository noteRepository;
-
+  private final AuthService authService;
   @GetMapping("/notes")
   public List<Note> getAllNotes() {
+
+
     return noteRepository.findAll();
   }
 

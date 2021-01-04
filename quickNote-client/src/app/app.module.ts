@@ -14,8 +14,13 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import {TokenInterceptor} from './token-interceptor';
-// import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { UserProfileComponent } from './auth/user-profile/user-profile.component';
+import { HeaderComponent } from './header/header.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {EditorModule} from '@tinymce/tinymce-angular';
+import { HomepageComponent } from './homepage/homepage.component';
+
 
 
 @NgModule({
@@ -27,6 +32,10 @@ import {TokenInterceptor} from './token-interceptor';
     UpdateNoteComponent,
     LoginComponent,
     SignupComponent,
+    UserProfileComponent,
+    HeaderComponent,
+    HomepageComponent,
+ 
 
   ],
   imports: [
@@ -36,8 +45,9 @@ import {TokenInterceptor} from './token-interceptor';
     HttpClientModule,
     ReactiveFormsModule,
     NgxWebstorageModule.forRoot(),
-    // FontAwesomeModule,
-    // NgbModule
+    FontAwesomeModule,
+    NgbModule,
+    EditorModule
   ],
   providers: [
     {

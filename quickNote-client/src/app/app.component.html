@@ -1,27 +1,3 @@
-<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
-  <ul class="navbar-nav">
-    <li class="nav-item">
-        <a routerLink="notes" class="nav-link" routerLinkActive="active">All notes</a>
-    </li>
-    <li class="nav-item">
-        <a routerLink="add" class="nav-link" routerLinkActive="active">Add Note</a>
-    </li>
-    <li class="nav-item">
-      <a routerLink="login" class="nav-link" routerLinkActive="active">Login</a>
-  </li>
-  <li class="nav-item">
-    <a routerLink="signup" class="nav-link" routerLinkActive="active">Signup</a>
-</li>
-<button (click)="logout()">Logout</button>
-  </ul>
-</nav>
-<div class="container">
-  <br>
-  <h2 style="text-align: center;">{{title}}</h2>
-  <hr>  
-  <div class="card">
-    <div class="card-body">
-  <router-outlet></router-outlet>
-    </div>
-  </div>
-</div>
+
+<app-header></app-header>
+<router-outlet></router-outlet>

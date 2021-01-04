@@ -15,11 +15,18 @@
                     <tr *ngFor="let note of notes | async">
                         <td>{{note.state}}</td>
                         <td>{{note.priority}}</td>
-                        <th>{{note.noteText}}</th>
-                        <td><button (click)="deleteNote(note.id)" class="btn btn-danger">Delete</button>
+                        <th>    <div>
+                            <p class="note-text" [innerHtml]="note.noteText"></p>
+                          </div></th>
+                        <div *ngIf="isLoggedIn" class="bar-option">   
+                            <td><button (click)="deleteNote(note.id)" class="btn btn-danger">Delete</button>
+                                <button (click)="displayNote(note.id)" class="btn btn-info" style="margin-left: 10px;">Show</button>
+                                <button (click)="modifyNote(note.id)" class="btn btn-info" style="margin-left: 10px;">Modify</button>
+                                </td>
+                            </div>
+                     <div *ngIf="!isLoggedIn">
                         <button (click)="displayNote(note.id)" class="btn btn-info" style="margin-left: 10px;">Show</button>
-                        <button (click)="modifyNote(note.id)" class="btn btn-info" style="margin-left: 10px;">Modify</button>
-                        </td>
+                     </div>
                     </tr>
                 </tbody>
             </table>
